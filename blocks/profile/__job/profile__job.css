@@ -1,0 +1,8 @@
+.profile__job {
+  margin: 0;
+  flex-basis: 100%;
+  order: 3;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #FFFFFF;
+}
