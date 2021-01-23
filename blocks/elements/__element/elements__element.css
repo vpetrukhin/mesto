@@ -1,1 +1,3 @@
-/* .elements__element {} */
+.elements__element {
+  justify-self: center;
+}
