@@ -16,7 +16,8 @@
 
 @media screen and (max-width:620px) {
   .elements {
-    width: 320px;
+    width: 282px;
     column-gap: 0;
+    margin-bottom: 48px;
   }
 }
