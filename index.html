@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesto</title>
+  <title>Место</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 
@@ -20,54 +20,54 @@
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__job">Исследователь океана</p>
-        <button class="profile__edit-btn"></button>
+        <button type="button" class="profile__edit-btn"></button>
       </div>
-      <button class="profile__add-btn"></button>
+      <button type="button" class="profile__add-btn"></button>
     </section>
 
     <section class="elements">
-      <div class="elements__element element">
+      <article class="elements__element element">
         <img src="./images/karachaevsc.jpg" alt="Карачаевск" class="element__image">
         <div class="element__footer">
           <h2 class="element__title">Карачаевск</h2>
-          <button class="element__like-btn"></button>
+          <button type="button" class="element__like-btn"></button>
         </div>
-      </div>
-      <div class="elements__element element">
+      </article>
+      <article class="elements__element element">
         <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
         <div class="element__footer">
           <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like-btn"></button>
+          <button type="button" class="element__like-btn"></button>
         </div>
-      </div>
-      <div class="elements__element element">
+      </article>
+      <article class="elements__element element">
         <img src="./images/dombai.jpg" alt="Домбай" class="element__image">
         <div class="element__footer">
           <h2 class="element__title">Домбай</h2>
-          <button class="element__like-btn"></button>
+          <button type="button" class="element__like-btn"></button>
         </div>
-      </div>
-      <div class="elements__element element">
+      </article>
+      <article class="elements__element element">
         <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
         <div class="element__footer">
           <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like-btn"></button>
+          <button type="button" class="element__like-btn"></button>
         </div>
-      </div>
-      <div class="elements__element element">
+      </article>
+      <article class="elements__element element">
         <img src="./images/dombai.jpg" alt="Домбай" class="element__image">
         <div class="element__footer">
           <h2 class="element__title">Домбай</h2>
-          <button class="element__like-btn"></button>
+          <button type="button" class="element__like-btn"></button>
         </div>
-      </div>
-      <div class="elements__element element">
+      </article>
+      <article class="elements__element element">
         <img src="./images/karachaevsc.jpg" alt="Карачаевск" class="element__image">
         <div class="element__footer">
           <h2 class="element__title">Карачаево-Черкессия</h2>
-          <button class="element__like-btn"></button>
+          <button type="button" class="element__like-btn"></button>
         </div>
-      </div>
+      </article>
     </section>
 
   </main>
@@ -81,16 +81,16 @@
   <div class="popup">
     <div class="popup__container">
       <button class="popup__btn-close"></button>
-      <h3 class="popup__title">Редактировать профиль</h3>
-      <form action="#" class="popup__form">
-        <input type="text" class="popup__input" id="name">
-        <input type="text" class="popup__input" id="job">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form action="#" class="popup__form" name="popup-form">
+        <input type="text" class="popup__input" id="name" name="inputName" required placeholder="Имя">
+        <input type="text" class="popup__input" id="job" name="inputJob" required placeholder="Род деятельности">
         <button type="submit" class="popup__btn">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="./js/script.js"></script>
 
 </body>
 

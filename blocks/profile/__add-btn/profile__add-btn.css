@@ -15,13 +15,11 @@
 @media screen and (max-width:750px) {
   .profile__add-btn {
     margin-top: 36px;
-    flex-basis: 100%;
+    width: 100%;
   }
 }
 @media screen and (max-width:530px) {
   .profile__add-btn {
     margin-top: 36px;
-    flex-basis: auto;
-    width: 100%;
   }
 }

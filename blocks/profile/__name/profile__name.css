@@ -7,13 +7,17 @@
   line-height: 1.14;
   color: #FFFFFF;
   order: 1;
+  text-overflow: ellipsis;
+  max-width: 336px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media screen and (max-width:530px) {
   .profile__name {
     margin-bottom: 10px;
-    margin-right: 14px;
-    margin-left: 13px;
-    font-size: 30px;
+    margin-right: 10px;
+    margin-left: 40px;
+    font-size: 27px;
   }
 }

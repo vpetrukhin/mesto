@@ -1,5 +1,5 @@
 'use strict';
-
+// Объявление переменных
 const modal = document.querySelector('.popup'),
       popupForm = document.querySelector('.popup__form'),
       btnClose = document.querySelector('.popup__btn-close'),
@@ -9,29 +9,31 @@ const modal = document.querySelector('.popup'),
       popupInputName = modal.querySelector('#name'),
       popupInputJob = modal.querySelector('#job');
 
-let nameValue = profileName.textContent;
-let jobValue = profileJob.textContent;
+// Функции
 
-// console.log(btnEdit);
-
-function modalOpen() {
-  popupInputName.value = nameValue;
-  popupInputJob.value = jobValue;
+// Открытие попапа
+function openModal() {
+  popupInputName.value = profileName.textContent;
+  popupInputJob.value = profileJob.textContent;
   modal.classList.add('popup_opened');
 }
 
-function modalClose() {
+// Закрытие попапа
+function closeModal() {
   modal.classList.remove('popup_opened');
 }
 
+// Работа формы
 function formSubmitHandler (e) {
   e.preventDefault();
   
   profileName.textContent = popupInputName.value;
   profileJob.textContent = popupInputJob.value;
-  modalClose();
+  closeModal();
 }
 
-btnEdit.addEventListener('click', modalOpen);
-btnClose.addEventListener('click', modalClose);
+// Обработчики событий
+
+btnEdit.addEventListener('click', openModal);
+btnClose.addEventListener('click', closeModal);
 popupForm.addEventListener('submit', formSubmitHandler);
