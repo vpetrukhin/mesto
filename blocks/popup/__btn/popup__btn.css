@@ -11,3 +11,10 @@
   background: #000000;
   border-radius: 2px;
 }
+
+@media screen and (max-width:435px) {
+  .popup__btn {
+    max-width: 100%;
+    margin-top: 45px;
+  }
+}
