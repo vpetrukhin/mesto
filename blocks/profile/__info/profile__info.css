@@ -1,7 +1,16 @@
 .profile__info {
+  margin-right: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  flex-basis: 50%;
+}
+
+@media screen and (max-width:770px) {
+  .profile__info {
+    flex-basis: 80%;
+    margin-right: 0;
+  }
 }
 
 @media screen and (max-width:620px) {
