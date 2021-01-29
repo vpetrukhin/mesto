@@ -4,10 +4,11 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  background: url(../../../images/CloseIcon.svg) center no-repeat;
+  background: url(../../../images/CloseIcon.svg) center/contain no-repeat;
   border: none;
   padding: 0;
   transition: opacity 1s;
+  cursor: pointer;
 }
 .popup__btn-close:hover {
   opacity: 0.6;
