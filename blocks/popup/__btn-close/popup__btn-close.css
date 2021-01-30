@@ -4,7 +4,7 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  background: url(../../../images/CloseIcon.svg) center/contain no-repeat;
+  background: url(../../../images/CloseIcon.svg) center no-repeat;
   border: none;
   padding: 0;
   transition: opacity 1s;
@@ -20,5 +20,6 @@
     height: 26px;
     top: -39px;
     right: 0;
+    background: url(../../../images/CloseIconSmall.svg) center no-repeat;  
   }
 }
