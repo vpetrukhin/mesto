@@ -10,7 +10,9 @@ const modal = document.querySelector('.popup'),
       popupInputJob = modal.querySelector('#job'),
       newItem = document.querySelector('.new-item'),
       profileAddBtn = document.querySelector('.profile__add-btn'),
-      newItemBtnClose = newItem.querySelector('.new-item__btn-close');
+      newItemBtnClose = newItem.querySelector('.new-item__btn-close'),
+      cardsContainer = document.querySelector('.elements'),
+      cardTemlate = document.querySelector('#element').content;
 
 //Массив с карточками
 
@@ -70,6 +72,17 @@ function formSubmitHandler (e) {
   profileJob.textContent = popupInputJob.value;
   closeModal();
 }
+
+// Добавление карточек
+initialCards.forEach((item) => {
+  const card = cardTemlate.querySelector('.element').cloneNode(true);
+  console.log(card);
+  card.querySelector('.element__image').setAttribute('src', item.link);
+  //card.querySelector('.element__image').alt = item.name;
+  card.querySelector('.element__title').textContent = item.name;
+
+  cardsContainer.append(card);
+});
 
 // Обработчики событий
 
