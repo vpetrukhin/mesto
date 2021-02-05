@@ -7,7 +7,10 @@ const modal = document.querySelector('.popup'),
       profileName = document.querySelector('.profile__name'),
       profileJob = document.querySelector('.profile__job'),
       popupInputName = modal.querySelector('#name'),
-      popupInputJob = modal.querySelector('#job');
+      popupInputJob = modal.querySelector('#job'),
+      newItem = document.querySelector('.new-item'),
+      profileAddBtn = document.querySelector('.profile__add-btn'),
+      newItemBtnClose = newItem.querySelector('.new-item__btn-close');
 
 //Массив с карточками
 
@@ -40,6 +43,13 @@ const initialCards = [
 
 // Функции
 
+//Функции формы добавления фотографии
+//Открытие-закрытие
+function openCloseNewItemForm() {
+  newItem.classList.toggle('new-item_opened');
+}
+
+//Функции попапа
 // Открытие попапа
 function openModal() {
   popupInputName.value = profileName.textContent;
@@ -66,3 +76,5 @@ function formSubmitHandler (e) {
 btnEdit.addEventListener('click', openModal);
 btnClose.addEventListener('click', closeModal);
 popupForm.addEventListener('submit', formSubmitHandler);
+profileAddBtn.addEventListener('click', openCloseNewItemForm);
+newItemBtnClose.addEventListener('click', openCloseNewItemForm);
