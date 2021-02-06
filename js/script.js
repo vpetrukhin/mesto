@@ -12,7 +12,8 @@ const modal = document.querySelector('.popup'),
       profileAddBtn = document.querySelector('.profile__add-btn'),
       newItemBtnClose = newItem.querySelector('.new-item__btn-close'),
       cardsContainer = document.querySelector('.elements'),
-      cardTemlate = document.querySelector('#element').content;
+      cardTemlate = document.querySelector('#element').content,
+      newItemForm = newItem.querySelector('.new-item__form');
 
 //Массив с карточками
 
@@ -74,9 +75,9 @@ function formSubmitHandler (e) {
 }
 
 // Добавление карточек
+
 initialCards.forEach((item) => {
   const card = cardTemlate.querySelector('.element').cloneNode(true);
-  console.log(card);
   card.querySelector('.element__image').setAttribute('src', item.link);
   //card.querySelector('.element__image').alt = item.name;
   card.querySelector('.element__title').textContent = item.name;
@@ -90,4 +91,17 @@ btnEdit.addEventListener('click', openModal);
 btnClose.addEventListener('click', closeModal);
 popupForm.addEventListener('submit', formSubmitHandler);
 profileAddBtn.addEventListener('click', openCloseNewItemForm);
-newItemBtnClose.addEventListener('click', openCloseNewItemForm);
+newItemBtnClose.addEventListener('click', openCloseNewItemForm)
+newItemForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const newItemInputName = newItemForm.querySelector('#name');
+  const newItemInputImage = newItemForm.querySelector('#image');
+
+  const card = cardTemlate.querySelector('.element').cloneNode(true);
+  console.log(card);
+  сard.querySelector('.element__image').setAttribute('src', newItemInputImage.value);
+  card.querySelector('.element__title').textContent = newItemInputName.value;
+
+  cardsContainer.append(card);
+});
