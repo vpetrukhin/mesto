@@ -99,9 +99,9 @@ newItemForm.addEventListener('submit', (e) => {
   const newItemInputImage = newItemForm.querySelector('#image');
 
   const card = cardTemlate.querySelector('.element').cloneNode(true);
-  console.log(card);
-  сard.querySelector('.element__image').setAttribute('src', newItemInputImage.value);
+  card.querySelector('.element__image').setAttribute('src', newItemInputImage.value);
   card.querySelector('.element__title').textContent = newItemInputName.value;
 
   cardsContainer.append(card);
+  openCloseNewItemForm();
 });
