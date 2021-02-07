@@ -84,14 +84,24 @@ initialCards.forEach((item) => {
 
   cardsContainer.append(card);
 });
-const elementLikeBtn = document.querySelectorAll('.element__like-btn');
-console.dir(elementLikeBtn);
+
+const elementLikeBtn = document.querySelectorAll('.element__like-btn'),
+      elementRemoveBtn = document.querySelectorAll('.element__remove-btn');
+
 elementLikeBtn.forEach((item) => {
   item.addEventListener('click', () => {
     console.log(elementLikeBtn);
     item.classList.toggle('element__like-btn_active');
   });
 })
+
+elementRemoveBtn.forEach((item) => {
+  item.addEventListener('click', () => {
+    item.closest('.element').remove();
+  })
+})
+
+
 // Обработчики событий
 
 btnEdit.addEventListener('click', openModal);
@@ -109,6 +119,6 @@ newItemForm.addEventListener('submit', (e) => {
   card.querySelector('.element__image').setAttribute('src', newItemInputImage.value);
   card.querySelector('.element__title').textContent = newItemInputName.value;
 
-  cardsContainer.append(card);
+  cardsContainer.prepend(card);
   openCloseNewItemForm();
 });
