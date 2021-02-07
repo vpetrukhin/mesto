@@ -84,7 +84,14 @@ initialCards.forEach((item) => {
 
   cardsContainer.append(card);
 });
-
+const elementLikeBtn = document.querySelectorAll('.element__like-btn');
+console.dir(elementLikeBtn);
+elementLikeBtn.forEach((item) => {
+  item.addEventListener('click', () => {
+    console.log(elementLikeBtn);
+    item.classList.toggle('element__like-btn_active');
+  });
+})
 // Обработчики событий
 
 btnEdit.addEventListener('click', openModal);
