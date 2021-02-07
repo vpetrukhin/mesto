@@ -47,3 +47,10 @@
 @import url(../blocks/new-item/__form/new-item__form.css);
 @import url(../blocks/new-item/__input/new-item__input.css);
 @import url(../blocks/new-item/__btn/new-item__btn.css);
+
+@import url(../blocks/image-popup/image-popup.css);
+@import url(../blocks/image-popup/_active/image-popup_active.css);
+@import url(../blocks/image-popup/__container/image-popup__container.css);
+@import url(../blocks/image-popup/__close-btn/image-popup__close-btn.css);
+@import url(../blocks/image-popup/__img/image-popup__img.css);
+@import url(../blocks/image-popup/__title/image-popup__title.css);

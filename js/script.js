@@ -86,7 +86,10 @@ initialCards.forEach((item) => {
 });
 
 const elementLikeBtn = document.querySelectorAll('.element__like-btn'),
-      elementRemoveBtn = document.querySelectorAll('.element__remove-btn');
+      elementRemoveBtn = document.querySelectorAll('.element__remove-btn'),
+      imagePopup = document.querySelector('.image-popup'),
+      elementImage = document.querySelectorAll('.element__image'),
+      imagePopupCloseBtn = imagePopup.querySelector('.image-popup__close-btn');
 
 elementLikeBtn.forEach((item) => {
   item.addEventListener('click', () => {
@@ -101,6 +104,18 @@ elementRemoveBtn.forEach((item) => {
   })
 })
 
+elementImage.forEach((item) => {
+  item.addEventListener('click', () => {
+
+    imagePopup.querySelector('.image-popup__img').setAttribute(
+      'src', item.getAttribute('src')
+    )
+    imagePopup.querySelector('.image-popup__title').textContent = item.closest('.element').querySelector('.element__title').textContent;
+
+    imagePopup.classList.add('image-popup_active');
+  })
+
+})
 
 // Обработчики событий
 
@@ -122,3 +137,6 @@ newItemForm.addEventListener('submit', (e) => {
   cardsContainer.prepend(card);
   openCloseNewItemForm();
 });
+imagePopupCloseBtn.addEventListener('click', () => {
+  imagePopup.classList.remove('image-popup_active');
+})
