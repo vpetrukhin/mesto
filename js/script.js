@@ -61,6 +61,7 @@ function openModal() {
   popupInputName.value = profileName.textContent;
   popupInputJob.value = profileJob.textContent;
   modal.classList.add('popup_opened');
+  modal.querySelector('.popup__container').classList.add('popup__container_visible');
 }
 
 // Закрытие попапа

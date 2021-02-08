@@ -5,6 +5,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
   background: rgba(0, 0, 0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 1s;
 }
