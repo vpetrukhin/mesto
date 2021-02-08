@@ -143,7 +143,7 @@ newItemBtnClose.addEventListener('click', openCloseNewItemForm)
 newItemForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const newItemInputName = newItemForm.querySelector('#name');
+  const newItemInputName = newItemForm.querySelector('#newName');
   const newItemInputImage = newItemForm.querySelector('#image');
 
   initialCards.push( {
