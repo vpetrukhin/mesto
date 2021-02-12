@@ -55,7 +55,7 @@ function formSubmitHandler(e) {
 
 // Создание карточек 
 function getCard(data) {
-  card = cardTemlate.querySelector('.element').cloneNode(true);
+  const card = cardTemlate.querySelector('.element').cloneNode(true);
 
   const likeBtn = card.querySelector('.element__like-btn');
   const removeBtn = card.querySelector('.element__remove-btn');
