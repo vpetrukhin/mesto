@@ -1,4 +1,6 @@
 // Объявление переменных
+
+// Редактировние профиля
 const modal = document.querySelector('.popup');
 const popupForm = document.querySelector('.popup__form');
 const btnClose = document.querySelector('.popup__btn-close');
@@ -7,33 +9,39 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const popupInputName = modal.querySelector('#name');
 const popupInputJob = modal.querySelector('#job');
+
+// Добавление новой карточки
 const newItem = document.querySelector('.new-item');
 const profileAddBtn = document.querySelector('.profile__add-btn');
 const newItemBtnClose = newItem.querySelector('.new-item__btn-close');
-const cardsContainer = document.querySelector('.elements');
 const cardTemlate = document.querySelector('#element').content;
 const newItemForm = newItem.querySelector('.new-item__form');
+const newItemFormName = newItemForm.querySelector('#newName');
+const newItemFormLink = newItemForm.querySelector('#image');
+
+// Попап с фотографией
 const elementsContainer = document.querySelector('.elements');
 const imagePopupCloseBtn = document.querySelector('.image-popup__close-btn');
 const imagePopup = document.querySelector('.image-popup');
 const imagePopupImg = imagePopup.querySelector('.image-popup__img');
 const imagePopupTitle = imagePopup.querySelector('.image-popup__title');
+
 // Функции
 
 //Открытие попапов
-function openPopups(popup, classMod) {
-  popup.classList.add(classMod);
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 // Закрытие попапjd
-function closePopups(popup, classMod) {
-  popup.classList.remove(classMod);
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 // Открытие формы редактирования данных профиля
 function openFormAddProfile() {
   popupInputName.value = profileName.textContent;
   popupInputJob.value = profileJob.textContent;
-  openPopups(modal, 'popup_opened');
+  openPopup(modal);
 }
 
 // Работа формы редактирования данных профиля
@@ -42,7 +50,7 @@ function formSubmitHandler(e) {
 
   profileName.textContent = popupInputName.value;
   profileJob.textContent = popupInputJob.value;
-  closePopups(modal, 'popup_opened');
+  closePopup(modal);
 }
 
 // Создание карточек 
@@ -58,10 +66,15 @@ function getCard(data) {
   cardImage.alt = data.name;
   cardTitle.textContent = data.name;
 
-  likeBtn.addEventListener('click', (e) => {addLike(e)});
-  removeBtn.addEventListener('click', (e) => {removeCard(e)});
+  likeBtn.addEventListener('click', addLike);
+  removeBtn.addEventListener('click', removeCard);
   cardImage.addEventListener('click', () => {
-    openPopups(cardImage, 'image-popup_active');
+
+    imagePopupImg.src = data.link;
+    imagePopupImg.alt = data.name;
+    imagePopupTitle.textContent = data.name;
+
+    openPopup(imagePopup);
   });
   
   return card;
@@ -92,23 +105,23 @@ function openImagePopup(data) {
   imagePopupImg.src = data.link;
   imagePopupImg.alt = data.name;
   imagePopupTitle.textContent = data.name;
-  openPopups(imagePopup, 'image-popup_active');
+  openPopup(imagePopup);
 }
 
 // Обработчики событий
 btnClose.addEventListener('click', () => {
-  closePopups(modal, 'popup_opened');
+  closePopup(modal);
 });
 newItemBtnClose.addEventListener('click', () => {
-  closePopups(newItem, 'new-item_opened');
+  closePopup(newItem,);
 })
 imagePopupCloseBtn.addEventListener('click', () => {
-  closePopups(imagePopup, 'image-popup_active')
+  closePopup(imagePopup)
 });
 
 btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
-  openPopups(newItem, 'new-item_opened');
+  openPopup(newItem);
 });
 
 popupForm.addEventListener('submit', formSubmitHandler);
@@ -117,12 +130,13 @@ newItemForm.addEventListener('submit', (e) => {
 
 const dataNewItem = 
   {
-    name: newItemForm.querySelector('#newName').value,
-    link: newItemForm.querySelector('#image').value,
+    name: newItemFormName.value,
+    link: newItemFormLink.value,
   };
 
   renderCard(dataNewItem, elementsContainer);
-
-  closePopups(newItem,'new-item_opened');
+  
+  newItemForm.reset();
+  closePopup(newItem);
 });
 
