@@ -11,7 +11,9 @@
   font-size: 14px;
   line-height: 1.2;
   color: #000000;
+  outline: none;
 }
 .popup__input:not(:last-of-type) {
   margin-bottom: 30px;
 }
+

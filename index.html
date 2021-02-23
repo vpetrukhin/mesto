@@ -40,22 +40,26 @@
     <div class="popup__container">
       <button type="button"  class="popup__btn-close" aria-label="Close"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="#" class="popup__form" name="popupForm">
-        <input type="text" class="popup__input" id="name" name="inputName" required placeholder="Имя">
-        <input type="text" class="popup__input" id="job" name="inputJob" required placeholder="Род деятельности">
+      <form action="#" class="popup__form" name="popupForm" novalidate>
+        <input type="text" class="popup__input" id="name-input" name="inputName" required placeholder="Имя" minlength="2" maxlength="40">
+        <span class="name-input-error popup__input-error"></span>
+        <input type="text" class="popup__input" id="job-input" name="inputJob" required placeholder="Род деятельности" minlength="2" maxlength="200">
+        <span class="job-input-error popup__input-error popup__input-error_type_second"></span>
         <button type="submit" class="popup__btn">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <div class="new-item">
-    <div class="new-item__container">
-      <button type="button" class="new-item__btn-close" aria-label="Close"></button>
-      <h2 class="new-item__title">Новое место</h2>
-      <form action="#" class="new-item__form">
-        <input type="text" class="new-item__input" id="newName" placeholder="Название">
-        <input type="text" class="new-item__input" id="image" placeholder="Ссылка на картинку">
-        <button type="submit" class="new-item__btn">Создать</button>
+  <div class="popup popup_type_new-item">
+    <div class="popup__container">
+      <button type="button" class="popup__btn-close" aria-label="Close"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form action="#" class="popup__form popup__form_type_new-item" novalidate>
+        <input type="text" class="popup__input popup__input_type_new-item" id="newName-input" placeholder="Название" minlength="2" maxlength="30" required>
+        <span class="newName-input-error popup__input-error"></span>
+        <input type="url" class="popup__input popup__input_type_new-item" id="image-input" placeholder="Ссылка на картинку" required>
+        <span class="image-input-error popup__input-error popup__input-error_type_second"></span>
+        <button type="submit" class="popup__btn">Создать</button>
       </form>
     </div>
   </div>
@@ -81,6 +85,7 @@
 
   <script src="./js/initial-cards.js"></script>
   <script src="./js/script.js"></script>
+  <script src="./js/validate.js"></script>
 
 </body>
 
