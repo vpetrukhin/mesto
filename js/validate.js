@@ -1,12 +1,4 @@
-// Параметры валидации
-const enableValidationObj = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__btn',
-  inactiveButtonClass: 'popup__btn_disabled',
-  inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__input-error_active'
-};
+
 
 // Показ элемента ошибки
 const showInputError = (formElement, inputElement, errorMessage, object) => {
@@ -55,12 +47,12 @@ const checkInputValidity = (formElement, inputElement) => {
 // Задание слушателей
 const setEventListener = (formElement, object) => {
   const inputList = Array.from(formElement.querySelectorAll(`${object.inputSelector}`));
-  const butonElement = formElement.querySelector(`${object.submitButtonSelector}`);
+  const buttonElement = formElement.querySelector(`${object.submitButtonSelector}`);
   toggleButtonState(inputList, butonElement, object);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, butonElement, object);
+      toggleButtonState(inputList, buttonElement, object);
     });
   });
 }
