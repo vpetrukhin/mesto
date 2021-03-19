@@ -30,7 +30,7 @@ const initialCards = [{
 ];
 
 // Параметры валидации
-const enableValidationObj = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__btn',
@@ -43,8 +43,7 @@ const enableValidationObj = {
 
 // Редактировние профиля
 const profilePopup = document.querySelector('.profile-popup');
-const popupForm = profilePopup.querySelector('.popup__form');
-const btnClose = profilePopup.querySelector('.popup__btn-close');
+const editProfileForm = profilePopup.querySelector('.popup__form');
 const btnEdit = document.querySelector('.profile__edit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
@@ -54,19 +53,22 @@ const popupInputJob = profilePopup.querySelector('#job-input');
 // Добавление новой карточки
 const newItem = document.querySelector('.new-item-popup');
 const profileAddBtn = document.querySelector('.profile__add-btn');
-const newItemBtnClose = newItem.querySelector('.popup__btn-close');
-const newItemForm = newItem.querySelector('.popup__form');
+const newItemForm = newItem.querySelector('.popup__form_type_new-item');
 const newItemFormName = newItemForm.querySelector('#newName-input');
 const newItemFormLink = newItemForm.querySelector('#image-input');
 
 // Попап с фотографией
 const elementsContainer = document.querySelector('.elements');
 const imagePopup = document.querySelector('.image-popup');
-
-const formList = Array.from(document.querySelectorAll(`${enableValidationObj.formSelector}`));
+const imagePopupImg = imagePopup.querySelector('.image-popup__img');
+const imagePopupTitle = imagePopup.querySelector('.image-popup__title');
 
 // Все попапы
 const popups = document.querySelectorAll('.popup');
+
+// Валидоторы
+const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
+const newItemFormValidator = new FormValidator(validationConfig, newItemForm);
 
 // Функции
 
@@ -81,10 +83,24 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeByEscape);
 }
 
+function hideInputError(form) {
+  form.querySelector(`.popup__input-error`).classList.remove(validationConfig.errorClass);
+  form.querySelector(`.popup__input`).classList.remove('popup__input_error');
+}
+
+function setDisabled(form) {
+  const btn = form.querySelector(validationConfig.submitButtonSelector);
+  btn.setAttribute('disabled', 'true');
+}
+
 // Открытие формы редактирования данных профиля
 function openFormAddProfile() {
+  hideInputError(editProfileForm);
+  setDisabled(editProfileForm);
+  editProfileForm.reset();
   popupInputName.value = profileName.textContent;
   popupInputJob.value = profileJob.textContent;
+  editProfileFormValidator.enableValidation();
   openPopup(profilePopup);
 }
 
@@ -94,27 +110,27 @@ function formSubmitHandler(e) {
 
   profileName.textContent = popupInputName.value;
   profileJob.textContent = popupInputJob.value;
+  editProfileForm.reset();
   closePopup(profilePopup);
 }
 
 // Инициализация карточек
 initialCards.forEach((data) => {
+  createCard(data);
+})
+
+function createCard(data) {
   const card = new Card(data, '#element');
-  elementsContainer.prepend(card._getCard());
-})
+  elementsContainer.prepend(card.getCard());
+}
 
 
-
-formList.forEach((formElement) => {
-  new FormValidator(enableValidationObj, formElement).enableValidation();
-})
 
 function closeByEscape(e) {
   if (e.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
-  console.log('fuu');
 }
 
 // Закрытие всех попапов
@@ -133,10 +149,15 @@ popups.forEach((popup) => {
 
 btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
+  hideInputError(newItemForm);
+  setDisabled(newItemForm);
+  newItemForm.reset();
+  newItemFormValidator.enableValidation();
   openPopup(newItem);
+
 });
 
-popupForm.addEventListener('submit', formSubmitHandler);
+editProfileForm.addEventListener('submit', formSubmitHandler);
 newItemForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -145,8 +166,15 @@ newItemForm.addEventListener('submit', (e) => {
     link: newItemFormLink.value,
   };
 
-  elementsContainer.prepend(new Card(dataNewItem, '#element')._getCard());
-
+  createCard(dataNewItem);
+  
   newItemForm.reset();
   closePopup(newItem);
+  newItemForm.reset();
 });
+
+export {
+  imagePopup,
+  imagePopupImg,
+  imagePopupTitle
+};
