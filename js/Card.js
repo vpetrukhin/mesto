@@ -2,7 +2,7 @@ import {
   imagePopup,
   imagePopupImg,
   imagePopupTitle
-} from './index.js';
+} from './/utils/constans.js';
 
 class Card {
   constructor(data, templateSelector) {
@@ -23,29 +23,33 @@ class Card {
     cardImage.alt = this._title;
     cardTitle.textContent = this._title;
 
-    this._setEventListener(card);
-    this._openImage(cardImage);
+    imagePopupImg.src = this._image;
+    imagePopupImg.alt = this._title;
+    imagePopupTitle.textContent = this._title;
+
+    this._setEventListener(card, cardImage);
 
     return card;
   }
 
-  _setEventListener(card) {
+  _setEventListener(card, cardImage) {
     const likeBtn = card.querySelector('.element__like-btn');
     const removeBtn = card.querySelector('.element__remove-btn');
 
     likeBtn.addEventListener('click', this._addLike);
     removeBtn.addEventListener('click', this._removeCard);
+    cardImage.addEventListener('click', this._openImage);
+    document.addEventListener('keydown', this._closeImageByEscape);
   }
 
-  _openImage(cardImage) {
-    cardImage.addEventListener('click', () => {
+  _openImage() {
+    imagePopup.classList.add('popup_opened');
+  }
 
-      imagePopupImg.src = this._image;
-      imagePopupImg.alt = this._title;
-      imagePopupTitle.textContent = this._title;
-
-      imagePopup.classList.add('popup_opened');
-    });
+  _closeImageByEscape(e) {
+    if (e.key === 'Escape') {
+      imagePopup.classList.remove('popup_opened');
+    }
   }
 
   _getCardTemplate() {

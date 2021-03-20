@@ -9,7 +9,28 @@ class FormValidator {
     this._formElement.addEventListener('submit', (e) => {
       e.preventDefault();
     })
-      this._setEventListener(this._formElement, this._enableValidationObj);
+    
+    this._setEventListener(this._formElement, this._enableValidationObj);
+  }
+
+  resetForm() {
+    this._resetInputsError();
+    this.setDisabled();
+    this._formElement.reset();
+  }
+
+  setDisabled() {
+    const btn = this._formElement.querySelector(this._enableValidationObj.submitButtonSelector);
+    btn.setAttribute('disabled', 'true');
+    btn.classList.add(this._enableValidationObj.inactiveButtonClass);
+  }
+
+  _resetInputsError() {
+    if (this._formElement.querySelector(`.${this._enableValidationObj.errorClass}`)) {
+      this._formElement.querySelector(`.${this._enableValidationObj.errorClass}`).classList.remove(this._enableValidationObj.errorClass);
+    }
+    
+    this._formElement.querySelector(`${this._enableValidationObj.inputSelector}`).classList.remove(`${this._enableValidationObj.inputErrorClass}`);
   }
 
   // Задание слушателей
@@ -20,6 +41,7 @@ class FormValidator {
     this._toggleButtonState(inputList, buttonElement, this._enableValidationObj);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
+        
         this._checkInputValidity(inputElement);
         this._toggleButtonState(inputList, buttonElement, this._enableValidationObj);
       });
@@ -28,6 +50,7 @@ class FormValidator {
 
   // Основная проверка полей
   _checkInputValidity(inputElement) {
+    
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage, this._enableValidationObj);
     } else {
