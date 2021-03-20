@@ -38,19 +38,10 @@ class Card {
 
     likeBtn.addEventListener('click', this._addLike);
     removeBtn.addEventListener('click', this._removeCard);
-    cardImage.addEventListener('click', this._openImage);
-    document.addEventListener('keydown', this._closeImageByEscape);
+    cardImage.addEventListener('click', openImage);
   }
 
-  _openImage() {
-    imagePopup.classList.add('popup_opened');
-  }
-
-  _closeImageByEscape(e) {
-    if (e.key === 'Escape') {
-      imagePopup.classList.remove('popup_opened');
-    }
-  }
+  
 
   _getCardTemplate() {
     const cardTemlate = document.querySelector(this._templateSelector).content;
@@ -64,6 +55,23 @@ class Card {
 
   _removeCard(e) {
     e.target.closest('.element').remove();
+  }
+}
+
+function openImage() {
+  imagePopup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeImageByEscape);
+}
+
+function closeImage() {
+  imagePopup.classList.remove('popup_opened');
+  document.addEventListener('keydown', closeImageByEscape);
+}
+
+function closeImageByEscape(e) {
+  if (e.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closeImage(openedPopup);
   }
 }
 
