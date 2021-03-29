@@ -2,7 +2,7 @@ import {
   imagePopup,
   imagePopupImg,
   imagePopupTitle
-} from './/utils/constans.js';
+} from '../utils/constans.js';
 
 class Card {
   constructor(data, templateSelector) {
