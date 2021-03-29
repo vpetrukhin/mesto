@@ -1,8 +1,8 @@
-import {
-  imagePopup,
-  imagePopupImg,
-  imagePopupTitle
-} from '../utils/constans.js';
+// import {
+//   imagePopup,
+//   imagePopupImg,
+//   imagePopupTitle
+// } from '../utils/constans.js';
 
 class Card {
   constructor(data, templateSelector) {
