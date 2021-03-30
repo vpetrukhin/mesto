@@ -1,4 +1,7 @@
 import Popup from './Popup.js';
+import {
+  validationConfig
+} from '../utils/constans.js';
 
 export default class PopupWithForm extends Popup {
   constructor( popupSelector, formSubmit) {
@@ -7,24 +10,48 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    const form = this._popup.querySelector('.popup__form');
-    const inputs = form.querySelectorAll('.popup__input');
+    this._inputList = this._popup.querySelectorAll('.popup__input');
+
     this._inputValues = {};
-    inputs.forEach((input) => {
-      inputValues[`${input.name}`] = input.link;
+
+    this._inputList.forEach((input) => {
+      this._inputValues[input.name] = input.value;
     })
+
     return this._inputValues;
   }
 
-  setEventListeners(form) {
-    form.addEventListener('submit', this._formSubmit);
-    super.setEventListeners(this._popup);
+  setEventListeners() {
+    this._form = this._popup.querySelector('.popup__form');
+
+    this._form.addEventListener('submit',(e) => {
+      e.preventDefault();
+      
+      this._formSubmit(this._getInputValues());
+    });
+    
+    super.setEventListeners();
   }
 
   close() {
-    this._popup.querySelector('.popup__form').reset();
+    
+    //Сброс формы
+    this._form.reset();
+    //Сброс ошибок
+    if (this._form.querySelector(`.${validationConfig.errorClass}`)) {
+      this._form.querySelector(`.${validationConfig.errorClass}`).classList.remove(validationConfig.errorClass);
+    }
 
-    super.close(this._popup);
+    this._form.querySelectorAll(`${validationConfig.inputSelector}`).forEach((input) => {
+      input.classList.remove(`${validationConfig.inputErrorClass}`)
+    })
+
+    //Деактивация кнопки
+    const btn = this._form.querySelector(validationConfig.submitButtonSelector);
+    btn.setAttribute('disabled', 'true');
+    btn.classList.add(validationConfig.inactiveButtonClass);
+
+    super.close();
   }
 
 }

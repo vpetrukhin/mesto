@@ -4,68 +4,32 @@ import Section from "../components/Section.js";
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import {
+  //Массив с карточками
+  initialCards,
+  //Параметры валидации
   validationConfig,
+  //Селекторы
+  elementTamplateSelector,
+  editProfileSelector,
+  newItemSelector,
+  popupImgSelector,
+  profileNameSelector,
+  profileAboutSelector,
   newItemForm,
   editProfileForm,
-  initialCards,
   elementsContainer,
-  elementTamplateSelector,
   popups,
   btnEdit,
   profileAddBtn, 
-  popupImgSelector,
   popupInputName,
   profileName,
   popupInputJob,
   profileJob,
   profilePopup,
   newItem,
-  editProfileSelector,
 } from '../utils/constans.js';
-
-
-const popup = new Popup('.popup')
-
-const editProfilePopup = new PopupWithForm(
-    editProfileSelector, 
-    (e) => {
-      e.preventDefault();
-
-      profileName.textContent = popupInputName.value;
-      profileJob.textContent = popupInputJob.value;
-      
-      // closePopup(profilePopup);
-      editProfilePopup.close();
-    }
-);
-
-const newItemPopup = new PopupWithForm();
-
-editProfilePopup.setEventListeners(editProfileForm);
-
-// Валидаторы
-const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
-const newItemFormValidator = new FormValidator(validationConfig, newItemForm);
-
-editProfileFormValidator.enableValidation();
-newItemFormValidator.enableValidation();
-
-// Функции
-
-// Открытие формы редактирования данных профиля
-function openFormAddProfile() {
-  editProfileFormValidator.resetForm();
-  popupInputName.value = profileName.textContent;
-  popupInputJob.value = profileJob.textContent;
-  // openPopup(profilePopup);
-  popup.open(profilePopup);
-}
-
-// Работа формы редактирования данных профиля
-function formSubmitHandler(e) {
-  
-}
 
 // Инициализация карточек
 const cardList = new Section({
@@ -87,16 +51,62 @@ const cardList = new Section({
   }
 }, elementsContainer);
 
-cardList.renderItems();
+//Экземпляры классов
+const popup = new Popup('.popup');
+const userInfo = new UserInfo({
+  profileNameSelector: profileNameSelector,
+  profileAboutSelector: profileAboutSelector,
+});
 
 
-//Закрытие Escape
 
-function closeByEscape(e) {
-  if (e.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
+// Валидаторы
+const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
+const newItemFormValidator = new FormValidator(validationConfig, newItemForm);
+
+const editProfilePopup = new PopupWithForm(
+  editProfileSelector,
+  (inputValueData) => {
+    profileName.textContent = inputValueData.name;
+    profileJob.textContent = inputValueData.job;
+
+    
+    editProfileFormValidator.resetForm();
+    editProfilePopup.close();
   }
+);
+
+const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
+  const newCard = new Card(
+    inputValueData, 
+    elementTamplateSelector,
+    () => {
+      const popupImg = new PopupWithImage(popupImgSelector, inputValueData);
+      popupImg.open();
+    });
+
+  const newCardElement = newCard.getCard();
+
+  cardList.addItems(newCardElement);
+
+  newItemPopup.close();
+});
+//Вызовы методов классов
+cardList.renderItems();
+editProfilePopup.setEventListeners();
+newItemPopup.setEventListeners();
+editProfileFormValidator.enableValidation();
+newItemFormValidator.enableValidation();
+
+// Функции
+
+// Открытие формы редактирования данных профиля
+function openFormAddProfile() {
+  const profileData = userInfo.getUserInfo();
+  popupInputName.value = profileData.name;
+  popupInputJob.value = profileData.about;
+
+  popup.open();
 }
 
 // Закрытие всех попапов
@@ -108,25 +118,5 @@ popups.forEach((item) => {
 
 btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
-  newItemFormValidator.resetForm();
-  popup.open(newItem);
-
+  popup.open();
 });
-
-// editProfileForm.addEventListener('submit', formSubmitHandler);
-// newItemForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-
-//   const dataNewItem = {
-//     name: newItemFormName.value,
-//     link: newItemFormLink.value,
-//   };
-
-//   renderCard(elementsContainer, createCard(dataNewItem));
-  
-//   popup.close(newItem);
-// });
-
-
-
-console.dir(document.querySelector('.popup__input'));

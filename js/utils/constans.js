@@ -37,7 +37,11 @@ export const validationConfig = {
 
 // Селекторы
 export const editProfileSelector = '.profile-popup';
-export const newItemSelector = '.new-item-popup'
+export const newItemSelector = '.new-item-popup';
+export const profileNameSelector = '.profile__name';
+export const profileAboutSelector = '.profile__job';
+export const popupImgSelector = '.image-popup';
+export const elementTamplateSelector = '#element';
 
 // Редактировние профиля
 export const profilePopup = document.querySelector('.profile-popup');
@@ -54,13 +58,7 @@ export const profileAddBtn = document.querySelector('.profile__add-btn');
 export const newItemForm = newItem.querySelector('.popup__form_type_new-item');
 export const newItemFormName = newItemForm.querySelector('#newName-input');
 export const newItemFormLink = newItemForm.querySelector('#image-input');
-
-// Попап с фотографией
-export const popupImgSelector = '.image-popup';
-
 export const elementsContainer = document.querySelector('.elements');
-export const elementTamplateSelector = '#element';
-
 
 // Все попапы
 export const popups = document.querySelectorAll('.popup');
@@ -68,4 +66,3 @@ export const popups = document.querySelectorAll('.popup');
 export const imagePopup = document.querySelector('.image-popup');
 export const imagePopupImg = imagePopup.querySelector('.image-popup__img');
 export const imagePopupTitle = imagePopup.querySelector('.image-popup__title');
-

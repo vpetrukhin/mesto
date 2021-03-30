@@ -13,26 +13,6 @@ class FormValidator {
     this._setEventListener(this._formElement, this._enableValidationObj);
   }
 
-  resetForm() {
-    this._resetInputsError();
-    this.setDisabled();
-    this._formElement.reset();
-  }
-
-  setDisabled() {
-    const btn = this._formElement.querySelector(this._enableValidationObj.submitButtonSelector);
-    btn.setAttribute('disabled', 'true');
-    btn.classList.add(this._enableValidationObj.inactiveButtonClass);
-  }
-
-  _resetInputsError() {
-    if (this._formElement.querySelector(`.${this._enableValidationObj.errorClass}`)) {
-      this._formElement.querySelector(`.${this._enableValidationObj.errorClass}`).classList.remove(this._enableValidationObj.errorClass);
-    }
-    
-    this._formElement.querySelector(`${this._enableValidationObj.inputSelector}`).classList.remove(`${this._enableValidationObj.inputErrorClass}`);
-  }
-
   // Задание слушателей
   _setEventListener() {
     const inputList = Array.from(this._formElement.querySelectorAll(`${this._enableValidationObj.inputSelector}`));
