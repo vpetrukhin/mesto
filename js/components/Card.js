@@ -1,14 +1,16 @@
-// import {
-//   imagePopup,
-//   imagePopupImg,
-//   imagePopupTitle
-// } from '../utils/constans.js';
+import PopupWithImage from './PopupWithImage.js';
+import {
+  imagePopup,
+  imagePopupImg,
+  imagePopupTitle
+} from '../utils/constans.js';
 
 class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._title = data.name;
     this._image = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
   
   getCard() {
@@ -23,10 +25,6 @@ class Card {
     cardImage.alt = this._title;
     cardTitle.textContent = this._title;
 
-    imagePopupImg.src = this._image;
-    imagePopupImg.alt = this._title;
-    imagePopupTitle.textContent = this._title;
-
     this._setEventListener(card, cardImage);
 
     return card;
@@ -35,10 +33,11 @@ class Card {
   _setEventListener(card, cardImage) {
     const likeBtn = card.querySelector('.element__like-btn');
     const removeBtn = card.querySelector('.element__remove-btn');
+    
 
     likeBtn.addEventListener('click', this._addLike);
     removeBtn.addEventListener('click', this._removeCard);
-    cardImage.addEventListener('click', openImage);
+    cardImage.addEventListener('click', this._handleCardClick);
   }
 
   
@@ -56,16 +55,6 @@ class Card {
   _removeCard(e) {
     e.target.closest('.element').remove();
   }
-}
-
-function openImage() {
-  imagePopup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeImageByEscape);
-}
-
-function closeImage() {
-  imagePopup.classList.remove('popup_opened');
-  document.addEventListener('keydown', closeImageByEscape);
 }
 
 function closeImageByEscape(e) {

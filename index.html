@@ -41,10 +41,10 @@
       <button type="button" class="popup__btn-close" aria-label="Close"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" class="popup__form" name="popupForm" novalidate>
-        <input type="text" class="popup__input" id="name-input" name="inputName" required placeholder="Имя"
+        <input type="text" class="popup__input" id="name-input" name="name" required placeholder="Имя"
           minlength="2" maxlength="40">
         <span class="name-input-error popup__input-error"></span>
-        <input type="text" class="popup__input" id="job-input" name="inputJob" required placeholder="Род деятельности"
+        <input type="text" class="popup__input" id="job-input" name="job" required placeholder="Род деятельности"
           minlength="2" maxlength="200">
         <span class="job-input-error popup__input-error popup__input-error_type_second"></span>
         <button type="submit" class="popup__btn" disabled="true">Сохранить</button>
@@ -57,10 +57,10 @@
       <button type="button" class="popup__btn-close new-item-popup__btn-close" aria-label="Close"></button>
       <h2 class="popup__title">Новое место</h2>
       <form action="#" class="popup__form popup__form_type_new-item" novalidate>
-        <input type="text" class="popup__input popup__input_type_new-item" id="newName-input" placeholder="Название"
+        <input type="text" class="popup__input popup__input_type_new-item" id="newName-input" name="titleImage" placeholder="Название"
           minlength="2" maxlength="30" required>
         <span class="newName-input-error popup__input-error"></span>
-        <input type="url" class="popup__input popup__input_type_new-item" id="image-input"
+        <input type="url" class="popup__input popup__input_type_new-item" id="image-input" name="linkImage"
           placeholder="Ссылка на картинку" required>
         <span class="image-input-error popup__input-error popup__input-error_type_second"></span>
         <button type="submit" class="popup__btn" disabled="true">Создать</button>
@@ -87,10 +87,13 @@
     </article>
   </template>
 
-  <script type="module" src="./js/index.js"></script>
+  <script type="module" src="./js/pages/index.js"></script>
   <script type="module" src="./js/utils/constans.js"></script>
-  <script type="module" src="./js/Card.js"></script>
-  <script type="module" src="./js/FormValidator.js"></script>
+  <script type="module" src="./js/components/Card.js"></script>
+  <script type="module" src="./js/components/FormValidator.js"></script>
+  <script type="module" src="./js/components/Section.js"></script>
+  <script type="module" src="./js/components/Popup.js"></script>
+  <script type="module" src="./js/components/PopupWithImage.js"></script>
 
 </body>
 

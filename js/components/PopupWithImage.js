@@ -1,3 +1,4 @@
+import Popup from './Popup.js';
 import {
   imagePopup,
   imagePopupImg,
@@ -12,12 +13,11 @@ class PopupWithImage extends Popup {
   }
 
   open() {
+    imagePopupImg.src = this._link;
+    imagePopupImg.alt = this._name;
+    imagePopupTitle.textContent = this.name;
 
-    imagePopupImg.src = this._image;
-    imagePopupImg.alt = this._title;
-    imagePopupTitle.textContent = this._title;
-    
-    super.open();
+    super.open(imagePopup);
   }
 
 }
