@@ -3,7 +3,6 @@ import '../../pages/index.css';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from "../components/Section.js";
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -22,15 +21,12 @@ import {
   newItemForm,
   editProfileForm,
   elementsContainer,
-  popups,
   btnEdit,
   profileAddBtn, 
   popupInputName,
   profileName,
   popupInputJob,
   profileJob,
-  profilePopup,
-  newItem,
 } from '../utils/constans.js';
 
 // Инициализация карточек
@@ -42,6 +38,7 @@ const cardList = new Section({
       elementTamplateSelector,
       () => {
         const popupImg = new PopupWithImage(popupImgSelector, item);
+        popupImg.setEventListeners();
         popupImg.open();
       }
     );
@@ -54,13 +51,10 @@ const cardList = new Section({
 }, elementsContainer);
 
 //Экземпляры классов
-const popup = new Popup('.popup');
 const userInfo = new UserInfo({
   profileNameSelector: profileNameSelector,
   profileAboutSelector: profileAboutSelector,
 });
-
-
 
 // Валидаторы
 const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
@@ -72,8 +66,6 @@ const editProfilePopup = new PopupWithForm(
     profileName.textContent = inputValueData.name;
     profileJob.textContent = inputValueData.job;
 
-    
-    editProfileFormValidator.resetForm();
     editProfilePopup.close();
   }
 );
@@ -84,6 +76,7 @@ const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
     elementTamplateSelector,
     () => {
       const popupImg = new PopupWithImage(popupImgSelector, inputValueData);
+      popupImg.setEventListeners();
       popupImg.open();
     });
 
@@ -100,25 +93,18 @@ newItemPopup.setEventListeners();
 editProfileFormValidator.enableValidation();
 newItemFormValidator.enableValidation();
 
-// Функции
-
 // Открытие формы редактирования данных профиля
 function openFormAddProfile() {
   const profileData = userInfo.getUserInfo();
   popupInputName.value = profileData.name;
   popupInputJob.value = profileData.about;
 
-  popup.open();
+  editProfilePopup.open();
 }
-
-// Закрытие всех попапов
-popups.forEach((item) => {
-  popup.setEventListeners(item);
-})
 
 // Обработчики событий
 
 btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
-  popup.open();
+  newItemPopup.open();
 });

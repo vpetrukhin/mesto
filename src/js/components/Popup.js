@@ -7,7 +7,7 @@ class Popup {
     if (e.key === 'Escape') {
       this._openedPopup = document.querySelector('.popup_opened');
       
-      this.close(this._openedPopup);
+      this.close();
     }
   }
   open() {
