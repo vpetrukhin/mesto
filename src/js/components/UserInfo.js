@@ -5,17 +5,15 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    const profileData = {};
-
-    profileData.name = this._profileName.textContent;
-    profileData.about = this._profileAbout.textContent;
-
-    return profileData;
+    return {
+      name: this._profileName.textContent,
+      job: this._profileAbout.textContent,
+    }
   }
 
   setUserInfo(data) {
     this._profileName.textContent = data.name;
-    this._profileAbout.textContent = data.about;
+    this._profileAbout.textContent = data.job;
   }
 
 }

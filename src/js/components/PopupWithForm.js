@@ -1,7 +1,4 @@
 import Popup from './Popup.js';
-import {
-  validationConfig
-} from '../utils/constans.js';
 
 export default class PopupWithForm extends Popup {
   constructor( popupSelector, formSubmit) {
@@ -37,19 +34,7 @@ export default class PopupWithForm extends Popup {
     
     //Сброс формы
     this._form.reset();
-    //Сброс ошибок
-    if (this._form.querySelector(`.${validationConfig.errorClass}`)) {
-      this._form.querySelector(`.${validationConfig.errorClass}`).classList.remove(validationConfig.errorClass);
-    }
 
-    this._form.querySelectorAll(`${validationConfig.inputSelector}`).forEach((input) => {
-      input.classList.remove(`${validationConfig.inputErrorClass}`)
-    })
-
-    //Деактивация кнопки
-    const btn = this._form.querySelector(validationConfig.submitButtonSelector);
-    btn.setAttribute('disabled', 'true');
-    btn.classList.add(validationConfig.inactiveButtonClass);
 
     super.close();
   }

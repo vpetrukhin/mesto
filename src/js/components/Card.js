@@ -12,25 +12,25 @@ class Card {
     const card = cardTemlate.querySelector('.element').cloneNode(true);
 
     
-    const cardImage = card.querySelector('.element__image');
-    const cardTitle = card.querySelector('.element__title');
+    this._cardImage = card.querySelector('.element__image');
+    this._cardTitle = card.querySelector('.element__title');
     
-    cardImage.src = this._image;
-    cardImage.alt = this._title;
-    cardTitle.textContent = this._title;
+    this._cardImage.src = this._image;
+    this._cardImage.alt = this._title;
+    this._cardTitle.textContent = this._title;
 
-    this._setEventListener(card, cardImage);
+    this._setEventListener(card, this._cardImage);
 
     return card;
   }
 
   _setEventListener(card, cardImage) {
-    const likeBtn = card.querySelector('.element__like-btn');
-    const removeBtn = card.querySelector('.element__remove-btn');
+    this._likeBtn = card.querySelector('.element__like-btn');
+    this._removeBtn = card.querySelector('.element__remove-btn');
     
 
-    likeBtn.addEventListener('click', this._addLike);
-    removeBtn.addEventListener('click', this._removeCard);
+    this._likeBtn.addEventListener('click', this._addLike);
+    this._removeBtn.addEventListener('click', this._removeCard);
     cardImage.addEventListener('click', this._handleCardClick);
   }
 
@@ -51,11 +51,5 @@ class Card {
   }
 }
 
-function closeImageByEscape(e) {
-  if (e.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closeImage(openedPopup);
-  }
-}
 
 export default Card;

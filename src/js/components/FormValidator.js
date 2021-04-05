@@ -15,15 +15,15 @@ class FormValidator {
 
   // Задание слушателей
   _setEventListener() {
-    const inputList = Array.from(this._formElement.querySelectorAll(`${this._enableValidationObj.inputSelector}`));
-    const buttonElement = this._formElement.querySelector(`${this._enableValidationObj.submitButtonSelector}`);
+    this._inputList = Array.from(this._formElement.querySelectorAll(`${this._enableValidationObj.inputSelector}`));
+    this._buttonElement = this._formElement.querySelector(`${this._enableValidationObj.submitButtonSelector}`);
 
-    this._toggleButtonState(inputList, buttonElement, this._enableValidationObj);
-    inputList.forEach((inputElement) => {
+    this._toggleButtonState(this._inputList, this._buttonElement, this._enableValidationObj);
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement, this._enableValidationObj);
+        this._toggleButtonState(this._inputList, this._buttonElement, this._enableValidationObj);
       });
     });
   }
@@ -44,6 +44,7 @@ class FormValidator {
 
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(`${this._enableValidationObj.inactiveButtonClass}`);
+      buttonElement.setAttribute('disabled', 'true');
     } else {
       buttonElement.classList.remove(`${this._enableValidationObj.inactiveButtonClass}`);
       buttonElement.removeAttribute('disabled');
@@ -76,6 +77,16 @@ class FormValidator {
     errorElement.classList.add(`${this._enableValidationObj.errorClass}`);
 
     inputElement.classList.add(`${this._enableValidationObj.inputErrorClass}`);
+  };
+
+  resetValidation() {
+    //Сброс ошибок
+    this._inputList.forEach((input) =>{
+      this._hideInputError(input);
+    })
+    
+    //Деактивация кнопки
+    this._toggleButtonState(this._inputList, this._buttonElement);
   };
 }
   

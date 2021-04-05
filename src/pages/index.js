@@ -1,11 +1,11 @@
-import '../../pages/index.css';
+import './index.css';
 
-import Card from '../components/Card.js';
-import FormValidator from '../components/FormValidator.js';
-import Section from "../components/Section.js";
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import UserInfo from '../components/UserInfo.js';
+import Card from '../js/components/Card.js';
+import FormValidator from '../js/components/FormValidator.js';
+import Section from "../js/components/Section.js";
+import PopupWithImage from '../js/components/PopupWithImage.js';
+import PopupWithForm from '../js/components/PopupWithForm.js';
+import UserInfo from '../js/components/UserInfo.js';
 import {
   //Массив с карточками
   initialCards,
@@ -27,26 +27,29 @@ import {
   profileName,
   popupInputJob,
   profileJob,
-} from '../utils/constans.js';
+} from '../js/utils/constans.js';
+
+const popupImg = new PopupWithImage(popupImgSelector);
+
+const createCard = (data) => {
+  const card = new Card(
+    data,
+    elementTamplateSelector,
+    () => {
+      popupImg.open(data);
+    }
+  );
+
+  const cardElement = card.getCard();
+
+  cardList.addItems(cardElement);
+}
 
 // Инициализация карточек
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(
-      item,
-      elementTamplateSelector,
-      () => {
-        const popupImg = new PopupWithImage(popupImgSelector, item);
-        popupImg.setEventListeners();
-        popupImg.open();
-      }
-    );
-
-    const cardElement = card.getCard();
-
-    cardList.addItems(cardElement);
-
+    createCard(item);
   }
 }, elementsContainer);
 
@@ -63,26 +66,16 @@ const newItemFormValidator = new FormValidator(validationConfig, newItemForm);
 const editProfilePopup = new PopupWithForm(
   editProfileSelector,
   (inputValueData) => {
-    profileName.textContent = inputValueData.name;
-    profileJob.textContent = inputValueData.job;
+    userInfo.setUserInfo(inputValueData);
+    // profileName.textContent = inputValueData.name;
+    // profileJob.textContent = inputValueData.job;
 
     editProfilePopup.close();
   }
 );
 
 const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
-  const newCard = new Card(
-    inputValueData, 
-    elementTamplateSelector,
-    () => {
-      const popupImg = new PopupWithImage(popupImgSelector, inputValueData);
-      popupImg.setEventListeners();
-      popupImg.open();
-    });
-
-  const newCardElement = newCard.getCard();
-
-  cardList.addItems(newCardElement);
+  createCard(inputValueData);
 
   newItemPopup.close();
 });
@@ -90,6 +83,7 @@ const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
 cardList.renderItems();
 editProfilePopup.setEventListeners();
 newItemPopup.setEventListeners();
+popupImg.setEventListeners();
 editProfileFormValidator.enableValidation();
 newItemFormValidator.enableValidation();
 
@@ -97,8 +91,9 @@ newItemFormValidator.enableValidation();
 function openFormAddProfile() {
   const profileData = userInfo.getUserInfo();
   popupInputName.value = profileData.name;
-  popupInputJob.value = profileData.about;
+  popupInputJob.value = profileData.job;
 
+  editProfileFormValidator.resetValidation();
   editProfilePopup.open();
 }
 
@@ -106,5 +101,6 @@ function openFormAddProfile() {
 
 btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
+  newItemFormValidator.resetValidation();
   newItemPopup.open();
 });
