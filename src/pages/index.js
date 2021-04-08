@@ -6,6 +6,7 @@ import Section from "../js/components/Section.js";
 import PopupWithImage from '../js/components/PopupWithImage.js';
 import PopupWithForm from '../js/components/PopupWithForm.js';
 import UserInfo from '../js/components/UserInfo.js';
+import Api from '../js/utils/Api.js';
 import {
   //Массив с карточками
   initialCards,
