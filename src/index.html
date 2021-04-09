@@ -55,7 +55,7 @@
 
   <div class="popup new-item-popup">
     <div class="popup__container">
-      <button type="button" class="popup__btn-close new-item-popup__btn-close" aria-label="Close"></button>
+      <button type="button" class="popup__btn-close" aria-label="Close"></button>
       <h2 class="popup__title">Новое место</h2>
       <form action="#" class="popup__form popup__form_type_new-item" novalidate>
         <input type="text" class="popup__input popup__input_type_new-item" id="newName-input" name="name" placeholder="Название"
@@ -79,10 +79,23 @@
 
   <div class="popup delete-popup">
     <div class="popup__container">
-      <button type="button" class="popup__btn-close new-item-popup__btn-close" aria-label="Close"></button>
+      <button type="button" class="popup__btn-close" aria-label="Close"></button>
       <h2 class="popup__title popup__title_type_delete">Вы уверенны?</h2>
       <form action="#" class="popup__form popup__form_type_delete" novalidate>
         <button type="submit" class="popup__btn" disabled="true">Да</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup change-popup">
+    <div class="popup__container">
+      <button type="button" class="popup__btn-close" aria-label="Close"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form action="#" class="popup__form popup__form_type_change" novalidate>
+        <input type="url" class="popup__input popup__input_type_change" id="ava-input" name="ava-link"
+          placeholder="Ссылка на картинку" required>
+        <span class="image-input-error popup__input-error popup__input-error_type_second"></span>
+        <button type="submit" class="popup__btn" disabled="true">Сохранить</button>
       </form>
     </div>
   </div>
