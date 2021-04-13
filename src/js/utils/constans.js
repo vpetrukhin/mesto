@@ -35,11 +35,13 @@ export const validationConfig = {
   errorClass: 'popup__input-error_active'
 };
 
+
 // Селекторы
 export const editProfileSelector = '.profile-popup';
 export const newItemSelector = '.new-item-popup';
 export const profileNameSelector = '.profile__name';
 export const profileAboutSelector = '.profile__job';
+export const profileAvatarSelector = '.profile__img';
 export const popupImgSelector = '.image-popup';
 export const elementTamplateSelector = '#element';
 
