@@ -4,16 +4,6 @@ export default class Api {
     this._group = group;
   }
 
-  // fetch('https://mesto.nomoreparties.co/v1/cohort-22/cards', {
-  //     headers: {
-  //       authorization: 'db03a97c-9ec5-4cd0-ab65-ee0272870f65'
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then((result) => {
-  //     console.log(result);
-  //   });
-
   getInfoUser() {
     return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/users/me`, {
       headers: {
@@ -25,13 +15,64 @@ export default class Api {
       }
       return Promise.reject(`Ошибка ${res.status}`)
     });
+  };
+
+  getCardInfo() {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/cards`, {
+      headers: {
+        authorization: `${this._token}`
+      }
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка ${res.status}`)
+    })
   }
 
-  //TODO: Загрузка карточек с сервера
+  changeUserInfo(data) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: `${this._token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about,
+      })
+    })
+    .then(res => res.ok
+      ? res.json()
+      : Promise.reject(`Ошибка ${res.status}`))
+  }
 
-  //TODO: Редактирование профиля
+  loadNewCard(data) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: `${this._token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
+    })
+    .then(res => res.ok
+      ? res.json()
+      : Promise.reject(`Ошибка ${res.status}`))
+  }
 
-  //TODO: Добавление новой карточки
+  deleteCard(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `${this._token}`,
+      }
+    })
+    .then(res => res.ok ? Promise.resolve('success') : Promise.reject(`Ошибка ${response.status}`))
+  }
 
   //TODO: Отображение количества лайков
 

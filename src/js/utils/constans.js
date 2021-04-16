@@ -36,6 +36,7 @@ export const validationConfig = {
 };
 
 
+
 // Селекторы
 export const editProfileSelector = '.profile-popup';
 export const newItemSelector = '.new-item-popup';
@@ -44,6 +45,7 @@ export const profileAboutSelector = '.profile__job';
 export const profileAvatarSelector = '.profile__img';
 export const popupImgSelector = '.image-popup';
 export const elementTamplateSelector = '#element';
+export const deletePopupSelector = '.delete-popup';
 
 // Редактировние профиля
 export const profilePopup = document.querySelector('.profile-popup');
