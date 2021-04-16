@@ -61,6 +61,23 @@ const createCard = (data) => {
       );
       deletePopup.open();
     },
+    () => {
+      if (card.findUserLike()) {
+        api.removeLike(card.getCardId())
+          .then((res) => {
+            card.handleLike(res);
+            card.refreshCardDataLikes(res);
+          })
+          .catch((err) => console.log(`Ошибка ${err}`))
+      } else {
+        api.setLike(card.getCardId())
+          .then((res) => {
+            card.handleLike(res);
+            card.refreshCardDataLikes(res);
+          })
+          .catch((err) => console.log(`Ошибка ${err}`))
+      }
+    },
     userId,
   );
 
@@ -90,7 +107,6 @@ const userInfo = new UserInfo({
 Promise.all([api.getCardInfo(), api.getInfoUser()])
   .then(([cardObj, info]) => {
     userId = info._id;
-    
 
     userInfo.setAvatar(info);
     userInfo.setUserInfo(info);

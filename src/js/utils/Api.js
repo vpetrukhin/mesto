@@ -74,6 +74,27 @@ export default class Api {
     .then(res => res.ok ? Promise.resolve('success') : Promise.reject(`Ошибка ${response.status}`))
   }
 
-  //TODO: Отображение количества лайков
+  setLike(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: {
+        authorization: `${this._token}`
+      }
+    })
+    .then(res => res.ok
+      ? res.json()
+      : Promise.reject(`Ошибка ${res.status}`)
+      )
+  }
+
+  removeLike(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `${this._token}`
+      }
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${response.status}`))
+  }
 
 }
