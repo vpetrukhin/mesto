@@ -31,7 +31,6 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    
     //Сброс формы
     this._form.reset();
 

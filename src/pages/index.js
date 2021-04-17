@@ -31,6 +31,7 @@ import {
   deletePopupSelector,
   changePopupSelector,
 } from '../js/utils/constans.js';
+import setSubmitBtnText from '../js/utils/utils.js';
 
 
 const popupImg = new PopupWithImage(popupImgSelector);
@@ -127,11 +128,13 @@ const changePopupValidator = new FormValidator(validationConfig, changeAvatarFor
 const editProfilePopup = new PopupWithForm(
   editProfileSelector,
   (inputValueData) => {
-    api.changeUserInfo(inputValueData);
-    userInfo.setAvatar(info);
-    userInfo.setUserInfo(inputValueData);
-    // userInfo.setUserInfo(inputValueData);
-
+    api.changeUserInfo(inputValueData)
+      .then(info => {
+        userInfo.setAvatar(info);
+        userInfo.setUserInfo(info);
+      })
+      .catch(err => console.log(err))
+      .finally(() => setSubmitBtnText(editProfileSelector, 'Сохранение...'))
     editProfilePopup.close();
   }
 );
@@ -139,17 +142,19 @@ const editProfilePopup = new PopupWithForm(
 const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
   api.loadNewCard(inputValueData)
     .then(res => {
-      console.log(res);
       createCard(res);
     })
-
+    .catch(err => console.log(err))
+    .finally(() => setSubmitBtnText(newItemSelector, 'Создание карточки...'))
   newItemPopup.close();
+  
 });
 
 const changePopup = new PopupWithForm(changePopupSelector, (inputValueData) => {
   api.updateAvatar(inputValueData.link)
     .then(res => userInfo.setAvatar(res))
     .catch(err => console.log(err))
+    .finally(() => setSubmitBtnText(editProfileSelector, 'Сохранение...'))
 
   changePopup.close();
 })
@@ -170,6 +175,7 @@ function openFormAddProfile() {
   popupInputJob.value = profileData.job;
 
   editProfileFormValidator.resetValidation();
+  setSubmitBtnText(editProfileSelector, 'Сохранить');
   editProfilePopup.open();
 }
 
@@ -178,9 +184,11 @@ function openFormAddProfile() {
 btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
   newItemFormValidator.resetValidation();
+  setSubmitBtnText(newItemSelector, 'Создать');
   newItemPopup.open();
 });
 changeAvatarBtn.addEventListener('click', () => {
   changePopupValidator.resetValidation();
+  setSubmitBtnText(editProfileSelector, 'Сохранить');
   changePopup.open();
 });
