@@ -21,12 +21,15 @@ import {
   profileAvatarSelector,
   newItemForm,
   editProfileForm,
+  changeAvatarForm,
   elementsContainer,
   btnEdit,
   profileAddBtn, 
+  changeAvatarBtn,
   popupInputName,
   popupInputJob,
   deletePopupSelector,
+  changePopupSelector,
 } from '../js/utils/constans.js';
 
 
@@ -119,6 +122,7 @@ Promise.all([api.getCardInfo(), api.getInfoUser()])
 // Валидаторы
 const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
 const newItemFormValidator = new FormValidator(validationConfig, newItemForm);
+const changePopupValidator = new FormValidator(validationConfig, changeAvatarForm);
 
 const editProfilePopup = new PopupWithForm(
   editProfileSelector,
@@ -141,13 +145,23 @@ const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
 
   newItemPopup.close();
 });
+
+const changePopup = new PopupWithForm(changePopupSelector, (inputValueData) => {
+  api.updateAvatar(inputValueData.link)
+    .then(res => userInfo.setAvatar(res))
+    .catch(err => console.log(err))
+
+  changePopup.close();
+})
 //Вызовы методов классов
 
 editProfilePopup.setEventListeners();
 newItemPopup.setEventListeners();
 popupImg.setEventListeners();
+changePopup.setEventListeners();
 editProfileFormValidator.enableValidation();
 newItemFormValidator.enableValidation();
+changePopupValidator.enableValidation();
 
 // Открытие формы редактирования данных профиля
 function openFormAddProfile() {
@@ -165,4 +179,8 @@ btnEdit.addEventListener('click', openFormAddProfile);
 profileAddBtn.addEventListener('click', () => {
   newItemFormValidator.resetValidation();
   newItemPopup.open();
+});
+changeAvatarBtn.addEventListener('click', () => {
+  changePopupValidator.resetValidation();
+  changePopup.open();
 });

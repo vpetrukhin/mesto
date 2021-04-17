@@ -97,4 +97,20 @@ export default class Api {
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${response.status}`))
   }
 
+  updateAvatar(link) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._group}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: `${this._token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: link,
+      })
+    })
+    .then(res => res.ok
+      ? res.json()
+      : Promise.reject(`Ошибка ${res.status}`))
+  }
+
 }
