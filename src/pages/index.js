@@ -38,11 +38,12 @@ const popupImg = new PopupWithImage(popupImgSelector);
 const api = new Api({
   token: 'db03a97c-9ec5-4cd0-ab65-ee0272870f65',
   group: 'cohort-22',
+  url: 'https://mesto.nomoreparties.co/v1/'
 });
 let userId;
 
-
-
+const deletePopup = new PopupDelete(deletePopupSelector);
+deletePopup.setEventListeners();
 
 const createCard = (data) => {
   const card = new Card(
@@ -52,17 +53,14 @@ const createCard = (data) => {
       popupImg.open(data);
     },
     () => {
-      const deletePopup = new PopupDelete(
-        deletePopupSelector,
-        () => {
-          api.deleteCard(card.getCardId())
-            .then(() => {
-              card.removeCard();
-              deletePopup.close();
-            })
-            .catch(() => console.log('Ошибка при удалении'))
-        }
-      );
+      deletePopup.setSubmitAction(() => {
+        api.deleteCard(card.getCardId())
+          .then(() => {
+            card.removeCard();
+            deletePopup.close();
+          })
+          .catch(() => console.log('Ошибка при удалении'))
+      });
       deletePopup.open();
     },
     () => {
@@ -132,10 +130,11 @@ const editProfilePopup = new PopupWithForm(
       .then(info => {
         userInfo.setAvatar(info);
         userInfo.setUserInfo(info);
+        editProfilePopup.close();
       })
       .catch(err => console.log(err))
       .finally(() => setSubmitBtnText(editProfileSelector, 'Сохранение...'))
-    editProfilePopup.close();
+    
   }
 );
 
@@ -143,20 +142,24 @@ const newItemPopup = new PopupWithForm(newItemSelector, (inputValueData) => {
   api.loadNewCard(inputValueData)
     .then(res => {
       createCard(res);
+      newItemPopup.close();
     })
     .catch(err => console.log(err))
     .finally(() => setSubmitBtnText(newItemSelector, 'Создание карточки...'))
-  newItemPopup.close();
+  
   
 });
 
 const changePopup = new PopupWithForm(changePopupSelector, (inputValueData) => {
   api.updateAvatar(inputValueData.link)
-    .then(res => userInfo.setAvatar(res))
+    .then(res => {
+      userInfo.setAvatar(res);
+      changePopup.close();
+      })
     .catch(err => console.log(err))
     .finally(() => setSubmitBtnText(editProfileSelector, 'Сохранение...'))
 
-  changePopup.close();
+  
 })
 //Вызовы методов классов
 
