@@ -8,7 +8,9 @@
 
 @media screen and (max-width:770px) {
   .profile__info {
-    flex-basis: 80%;
+    flex-basis: 60%;
+    display: flex;
+    flex-wrap: wrap;
     margin-right: 0;
   }
 }

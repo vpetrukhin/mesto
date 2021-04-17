@@ -10,6 +10,12 @@
   overflow: hidden;
   white-space: nowrap;
 }
+@media screen and (max-width:770px) {
+  .profile__job {
+    flex-basis: 100%;
+    
+  }
+}
 
 @media screen and (max-width:530px) {
   .profile__job {

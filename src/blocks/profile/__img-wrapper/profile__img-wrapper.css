@@ -1,5 +1,5 @@
 .profile__img-wrapper {
-  width: 13.6%;
+  width: 120px;
   margin-right: 30px;
   border-radius: 50%;
   position: relative;
@@ -23,4 +23,19 @@
 
 .profile__img-wrapper:hover::after {
   opacity: 0.8;
+}
+
+@media screen and (max-width:770px) {
+  .profile__img-wrapper {
+    flex-basis: 20%;
+  }
+}
+
+@media screen and (max-width:530px) {
+  .profile__img-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-right: 0;
+    margin-bottom: 28px;
+  }
 }

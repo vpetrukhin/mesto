@@ -7,6 +7,8 @@
 
 @media screen and (max-width:750px) {
   .profile {
+    
+    align-items: center;
     flex-wrap: wrap;
   }
 }
